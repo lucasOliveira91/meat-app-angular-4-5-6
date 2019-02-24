@@ -1,3 +1,4 @@
+import { MenuItem } from './../restaurant-detail/menu-item/menu-item.model';
 import { MEAT_API } from './../app.api';
 import { Injectable } from "@angular/core";
 import { Restaurant } from "./restaurant/restaurant.model";
@@ -26,6 +27,12 @@ export class RestaurantsService {
 
     reviews(id: string): Observable<any> {
         return this.http.get(`${MEAT_API}/restaurants/${id}/reviews`)
+            .map(res => res.json())
+            .catch(ErrorHandler.handleError);
+    }
+
+    items(id: string): Observable<MenuItem[]> {
+        return this.http.get(`${MEAT_API}/restaurants/${id}/menu`)
             .map(res => res.json())
             .catch(ErrorHandler.handleError);
     }
