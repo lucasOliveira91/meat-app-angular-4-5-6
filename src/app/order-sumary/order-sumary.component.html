@@ -6,7 +6,10 @@
     <h2>Finished Order</h2>
     <p>The restaurant received your order. Set the table, the food is coming!</p>
     <p><b>Ranting</b> your experience:</p>
-    <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
+    <p><mt-rating (rated)="rated = true"></mt-rating></p>
+    <p [hidden]="!rated">
+      Thank you for your rating.
+    </p>
   </div>
 
 </section>
