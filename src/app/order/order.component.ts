@@ -4,6 +4,7 @@ import { OrderService } from './order.service';
 import { CartItem } from '../restaurant-detail/shopping-cart/cart-item.model';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
 export class OrderComponent implements OnInit {
 
   delivery: number = 8;
+  orderForm: FormGroup;
+  emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  numberPattern = /^[0-9]*$/;
 
   paymentOptions: RadioOption[] = [
     {label: 'Money', value: 'MON'},
@@ -21,13 +25,21 @@ export class OrderComponent implements OnInit {
 
   constructor(
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
-
+    this.orderForm = this.fb.group({
+      name: [null, [Validators.required, Validators.minLength(5)]],
+      email: this.fb.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      emailConfirmation: this.fb.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
+      address:  this.fb.control('', [Validators.required, Validators.minLength(5)]),
+      number:  this.fb.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
+      optionalAddress:  this.fb.control(''),
+      paymentOption:  this.fb.control('', [Validators.required])
+    });
   }
-
   itemsValue(): number {
     return this.orderService.itemsValue();
   }

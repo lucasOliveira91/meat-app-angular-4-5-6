@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
   selector: 'mt-order-sumary',
   templateUrl: './order-sumary.component.html'
 })
-export class OrderSumaryComponent implements OnInit {
+export class OrderSumaryComponent {
 
-  constructor() { }
+  constructor(
+  ) { }
 
-  ngOnInit() {
-  }
+
 
 }

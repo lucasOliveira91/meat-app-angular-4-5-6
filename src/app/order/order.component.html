@@ -4,14 +4,35 @@
   <section class="content">
     <section class="invoice">
 
-          <form #form="ngForm" novalidate>
+          <form [formGroup]="orderForm" novalidate>
             <div class="row">
               <div class="col-xs-12">
                 <h2 class="page-header">
                   <i class="fa fa-shopping-cart"></i> Finalize o seu pedido
                 </h2>
               </div>
-            </div>                
+            </div>         
+            
+            <div class="row">
+              <div class="col-xs-12">
+                  <p class="lead">Your Data</p>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                  <mt-input-container errorMessage="Required field" label="Name">
+                    <input class="form-control" formControlName="name"  placeholder="Address" autocomplete="off">
+                  </mt-input-container>
+                </div>
+                <div class="col-sm-3 col-xs-6">
+                    <mt-input-container errorMessage="Invalid Email." label="Email">
+                      <input class="form-control" formControlName="email" placeholder="Email" autocomplete="off">
+                    </mt-input-container>
+                  </div>
+                  <div class="col-sm-3 col-xs-6">
+                      <mt-input-container errorMessage="Invalid Email." label="Email Confirmation">
+                        <input class="form-control" formControlName="emailConfirmation" placeholder="Email Confirmation" autocomplete="off">
+                      </mt-input-container>
+                    </div>
+            </div>
 
             <div class="row invoice-info">
               <div class="col-xs-12">
@@ -19,17 +40,17 @@
               </div>
               <div class="col-sm-6 col-xs-12">
                 <mt-input-container errorMessage="Required field" label="Address">
-                  <input class="form-control" name="address" ngModel required minlength="5" placeholder="Address" autocomplete="off">
+                  <input class="form-control" formControlName="address"  placeholder="Address" autocomplete="off">
                 </mt-input-container>
               </div>
               <div class="col-sm-3 col-xs-6">
                 <mt-input-container errorMessage="Required field, only numbers" label="Number">
-                  <input class="form-control" name="number" ngModel required placeholder="Number" pattern="^[0-9]*$" autocomplete="off">
+                  <input class="form-control" formControlName="number" placeholder="Number"  autocomplete="off">
                 </mt-input-container>
               </div>
               <div class="col-sm-3 col-xs-6">
                 <mt-input-container label="Optional">
-                  <input class="form-control" name="optionalAddress" ngModel placeholder="Optional" autocomplete="off">
+                  <input class="form-control" formControlName="optionalAddress" placeholder="Optional" autocomplete="off">
                 </mt-input-container>
               </div>
               <!-- /.col -->
@@ -55,7 +76,7 @@
                 <p class="lead">Formas de Pagamento:</p>
 
                   <div class="form-group">
-                    <mt-radio required [options]="paymentOptions" name="paymentOption" ngModel></mt-radio>
+                    <mt-radio [options]="paymentOptions" formControlName="paymentOption"></mt-radio>
                   </div>
 
               </div>
@@ -72,8 +93,8 @@
 
           <div class="row">
             <div class="col-xs-12">
-              <button (click)="checkOrder(form.value)" class="btn btn-success pull-right" 
-                [disabled]="!form.valid || cartItems.lenght === 0">
+              <button (click)="checkOrder(orderForm.value)" class="btn btn-success pull-right" 
+                [disabled]="!orderForm.valid || cartItems.lenght === 0">
               <i class="fa fa-credit-card"></i> Concluir Pedido
               </button>
             </div>
