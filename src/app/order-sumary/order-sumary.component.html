@@ -6,8 +6,8 @@
     <h2>Finished Order</h2>
     <p>The restaurant received your order. Set the table, the food is coming!</p>
     <p><b>Ranting</b> your experience:</p>
-    <p><mt-rating (rated)="rated = true"></mt-rating></p>
-    <p [hidden]="!rated">
+    <p><mt-rating (rated)="rate()"></mt-rating></p>
+    <p *ngIf="rated">
       Thank you for your rating.
     </p>
   </div>
