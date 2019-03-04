@@ -29,3 +29,14 @@ Regular Expressions to validate the form.
 ### Number Regex
 
 `/^[0-9]*$/`
+
+
+## Production
+run:
+> npm build --prod
+With other base href, case your application is not on root in server.
+> npm build --prod --bh=/meat/
+
+To configure youer htpp server without hash navagation you need to see this link above:
+https://angular.io/guide/deployment
+Session: Routed apps must fallback to index.html
