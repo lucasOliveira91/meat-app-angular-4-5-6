@@ -18,6 +18,7 @@ import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component'
 import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
 import { SharedModule } from './shared/shared.model';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ShoppingCartComponent,
     MenuItemComponent,
     ReviewsComponent,
-    OrderSumaryComponent
+    OrderSumaryComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
