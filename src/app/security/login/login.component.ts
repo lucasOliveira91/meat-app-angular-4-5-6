@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.navigateTo = this.activatedRoute.snapshot.params['to'] || '/';
+    this.navigateTo = this.activatedRoute.snapshot.params['to'] || btoa('/');
     this.loginForm = this.fb.group({
       email: this.fb.control('', [Validators.required, Validators.email]),
       password: this.fb.control('', [Validators.required])
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }, (error: HttpErrorResponse) => { //httpErrorResponse
       this.notificationService.notify(`${error.error.message}`);
     }, () => {
-      this.router.navigate([this.navigateTo])
+      this.router.navigate([atob(this.navigateTo)])
     });
   }
 
