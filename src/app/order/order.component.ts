@@ -16,6 +16,7 @@ export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   numberPattern = /^[0-9]*$/;
+  ordemItem: string;
 
   paymentOptions: RadioOption[] = [
     {label: 'Money', value: 'MON'},
@@ -79,9 +80,14 @@ export class OrderComponent implements OnInit {
 
   checkOrder(order: Order) {
     order.orderItems = this.cartItems().map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id));
-    this.orderService.checkOrder(order).subscribe((ordemItem: string) => {
+    this.orderService.checkOrder(order)
+    .do(ordemItem => this.ordemItem = ordemItem).subscribe((ordemItem: string) => {
       this.orderService.clear();
       this.router.navigate(['/order-summary']);
     });
+  }
+
+  isOrderCompleted(): boolean {
+    return this.ordemItem !== undefined;
   }
 }
