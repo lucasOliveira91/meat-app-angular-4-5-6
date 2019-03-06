@@ -19,10 +19,12 @@ import { OrderSumaryComponent } from './order-sumary/order-sumary.component';
 import { SharedModule } from './shared/shared.model';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { LoginComponent } from './security/login/login.component';
 import { UserDetailComponent } from './header/user-detail/user-detail.component';
 import { ApplicationErrorHandler } from './app.error.handler';
+import locatePt from '@angular/common/locales/pt';
+registerLocaleData(locatePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -50,7 +52,7 @@ import { ApplicationErrorHandler } from './app.error.handler';
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    {provide: LOCALE_ID, useValue: 'pt'},
     {provide: ErrorHandler, useClass: ApplicationErrorHandler}
   ],
   bootstrap: [AppComponent]

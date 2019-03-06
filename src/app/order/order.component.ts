@@ -1,10 +1,10 @@
-import { Component, OnInit, group } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RadioOption } from '../shared/radio/radio-option.model';
 import { OrderService } from './order.service';
 import { CartItem } from '../restaurant-detail/shopping-cart/cart-item.model';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
@@ -31,15 +31,17 @@ export class OrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.orderForm = this.fb.group({
-      name: [null, [Validators.required, Validators.minLength(5)]],
-      email: this.fb.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
+    this.orderForm = new FormGroup({
+      name: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(5)]
+      }),
+      email:this.fb.control('',  [Validators.required, Validators.pattern(this.emailPattern)]),
       emailConfirmation: this.fb.control('', [Validators.required, Validators.pattern(this.emailPattern)]),
       address:  this.fb.control('', [Validators.required, Validators.minLength(5)]),
       number:  this.fb.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress:  this.fb.control(''),
       paymentOption:  this.fb.control('', [Validators.required])
-    }, {validator: OrderComponent.equalsTo});
+    }, {validators: [OrderComponent.equalsTo], updateOn: 'blur'});
   }
   
   static equalsTo(group: AbstractControl) : {[key: string]: boolean} {

@@ -4,6 +4,9 @@ import { RestaurantsService } from './restaurants.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'mt-restaurants',
