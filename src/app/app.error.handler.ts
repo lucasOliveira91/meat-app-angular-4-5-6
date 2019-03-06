@@ -1,17 +1,37 @@
 import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandler, Injectable, Injector, NgZone } from '@angular/core';
+import { NotificarionService } from './shared/messages/notiication.service';
+import { LoginService } from './security/login/login.service';
 
-export class ErrorHandler {
+@Injectable()
+export class ApplicationErrorHandler extends ErrorHandler {
 
-    static handleError(error: HttpErrorResponse | any) {
-        let errorMessage: string;
+    constructor(
+        private notificationService: NotificarionService,
+        private injector: Injector,
+        private zone: NgZone
+    ){
+        super();
+    }
 
-        if (error instanceof HttpErrorResponse) {
-            const body = error.error;
-            errorMessage = `Erro ${error.url} ao acessar a url ${error.status} - ${body}`;
-        } else {
-            errorMessage = error.toString();
+    handleError(errorResponse: HttpErrorResponse | any) {
+        if(errorResponse instanceof HttpErrorResponse) {
+            const message = errorResponse.error.message;
+            this.zone.run(() => {
+                switch(errorResponse.status) {
+                    case 401:
+                        this.injector.get(LoginService).handleLogin();
+                    break;
+                    case 403:
+                        this.notificationService.notify(message || 'Access Denid.');
+                    break;
+                    case 404:
+                        this.notificationService.notify(message || 'Not Found.');
+                    break;
+                }
+            });
         }
-        return Observable.throw(errorMessage);
+        super.handleError(errorResponse);
     }
 }
