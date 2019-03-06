@@ -9,6 +9,7 @@ export const handleAuthorization = (req: Request, resp: Response, next) => {
         resp.setHeader('WWW-Authenticate', 'Bearer token_type="JWT"'); // 401 pattern 
         resp.status(401).json({message: 'Authentication required.'})
     }else {
+        console.log(token)
         jwt.verify(token, apiConfig.secret, (error, decoded) => {
             if(decoded) {
                 next();

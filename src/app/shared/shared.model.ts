@@ -10,6 +10,7 @@ import { RestaurantsService } from "../restaurants/restaurants.service";
 import { SnackbarComponent } from "./messages/snackbar/snackbar.component";
 import { NotificarionService } from "./messages/notiication.service";
 import { LoginService } from "../security/login/login.service";
+import { LoggedInGuard } from "../security/loggedin.guard";
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ export class SharedModule{
                 ShoppingCartService,
                 RestaurantsService,
                 NotificarionService,
-                LoginService
+                LoginService,
+                LoggedInGuard
             ]
         }
     }

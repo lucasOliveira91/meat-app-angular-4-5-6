@@ -9,6 +9,7 @@ exports.handleAuthorization = function (req, resp, next) {
         resp.status(401).json({ message: 'Authentication required.' });
     }
     else {
+        console.log(token);
         jwt.verify(token, api_config_1.apiConfig.secret, function (error, decoded) {
             if (decoded) {
                 next();
