@@ -12,6 +12,8 @@ import { NotificarionService } from "./messages/notiication.service";
 import { LoginService } from "../security/login/login.service";
 import { AuthGuard } from "../security/auth.guard";
 import { LeaveOrderGuard } from "../order/leave-order.guard";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "../security/auth.interceptor";
 
 @NgModule({
     declarations: [
@@ -46,7 +48,8 @@ export class SharedModule{
                 NotificarionService,
                 LoginService,
                 AuthGuard,
-                LeaveOrderGuard
+                LeaveOrderGuard,
+                {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
             ]
         }
     }
