@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
+import { NotificarionService } from '../../shared/messages/notiication.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'mt-login',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private notificationService: NotificarionService
   ) { }
 
   ngOnInit() {
@@ -25,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loginService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(user => {
-      
+      this.notificationService.notify(`Welcome ${user.name}`);
+    }, (error: HttpErrorResponse) => { //httpErrorResponse
+      this.notificationService.notify(`${error.error.message}`);
     });
   }
 
