@@ -17,6 +17,9 @@
       "node"
     ]
   },
+  "angularCompileOptions" : {
+    "preserveWhiteSpaces": true
+  },
   "files": [
     "test.ts",
     "polyfills.ts"
